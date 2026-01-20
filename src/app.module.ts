@@ -15,7 +15,7 @@ import { UserModule } from './user/user.module';
         port: +config.get('DB_PORT', 5432),
         username: config.get('DB_USERNAME', 'postgres'),
         password: config.get('DB_PASSWORD', 'postgres'),
-        database: config.get('DB_NAME', 'myapp'),
+        database: config.get('DB_NAME', 'postgres'),
         synchronize: true,
         autoLoadModels: true,
       }),
