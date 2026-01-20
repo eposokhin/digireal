@@ -5,7 +5,7 @@ Balance withdrawal showcase
 ## Project setup
 
 ```bash
-npm install
+npm ci
 npm run start
 ```
 
