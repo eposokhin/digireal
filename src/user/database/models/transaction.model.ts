@@ -2,10 +2,17 @@ import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript
 import { UserModel } from "./user.model";
 import { ActionEnum } from "../../types/action.enum";
 
+interface TransactionCreationAttrs {
+  userId: number;
+  action: ActionEnum;
+  amount: number;
+  idempotentKey: string;
+}
+
 @Table({
   tableName: 'transactions'
 })
-export class TransactionModel extends Model {
+export class TransactionModel extends Model<TransactionModel, TransactionCreationAttrs> {
   @ForeignKey(() => UserModel)
   @Column({
     allowNull: false
