@@ -14,6 +14,18 @@ export class UserService {
         private readonly sequelize: Sequelize
     ) { }
 
+    async getUser(userId: number) {
+        const user = await this.userModel.findByPk(userId, {
+            include: [
+                {
+                    model: TransactionModel
+                }
+            ]
+        });
+        if (!user) throw new NotFoundException('User not found');
+        return user;
+    }
+
     async create(balance: number) {
         return await this.userModel.create({
             balance
@@ -38,7 +50,7 @@ export class UserService {
                 Logger.warn('Idempotent transaction found, skipping withdrawal')
                 return;
             }
-            
+
             const user = await this.userModel.findByPk(userId, { transaction, lock: transaction.LOCK.NO_KEY_UPDATE });
 
             if (!user) throw new NotFoundException('User not found');
